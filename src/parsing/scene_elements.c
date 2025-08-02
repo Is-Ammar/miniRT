@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene_elememts.c                                   :+:      :+:    :+:   */
+/*   scene_elements.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 20:36:24 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/02 20:37:34 by iammar           ###   ########.fr       */
+/*   Updated: 2025/08/02 20:52:15 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void spher(t_scene *scene, char **splitted)
         printf("error: invalid sphere parameters!\n");
         exit(1);
     }
-    
     scene->sphere->coordinate = get_cordinate(splitted[1]);
     scene->sphere->diameter = ft_atoi(splitted[2]);
     scene->sphere->color = get_color(splitted[3]);
