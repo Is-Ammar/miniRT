@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 03:38:14 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/02 03:50:47 by iammar           ###   ########.fr       */
+/*   Updated: 2025/08/02 20:28:36 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char *gnl(int fd)
             if(line[i - 1] == '\n')
                 break;
     }
-    line[i] = '\0';
+    line[i - 1] = '\0';
     if(i == 0)
         return NULL;
     return ft_strdup(line);

@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/02 04:12:31 by iammar           ###   ########.fr       */
+/*   Updated: 2025/08/02 20:38:38 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,13 @@ char *gnl(int fd);
 t_scene *parse_file(char *file);
 int number_sp(char **splitted);
 void camera(t_scene *scene, char **splitted);
+t_cor *get_cordinate(char *str);
+void light(t_scene *scene , char **splitted);
+t_color *get_color(char *str);
+t_vector *get_vector(char *str);
+void ambient(t_scene *scene,char **splitted);
+void spher(t_scene *scene, char **splitted);
+void plan(t_scene *scene, char **splitted);
+void cylinde(t_scene *scene, char **splitted);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 03:39:51 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/02 04:12:03 by iammar           ###   ########.fr       */
+/*   Updated: 2025/08/02 20:36:52 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,13 @@ t_color *get_color(char *str)
     rgb = ft_split(str, ',');
     if(number_sp(rgb) != 3)
     {
-        printf("error: values");
+        printf("error: invalid color values\n");
         exit(1);
     }
     color->r = atoi(rgb[0]);
     color->g = atoi(rgb[1]);
     color->b = atoi(rgb[2]);
     return color;
-}
-
-void ambient(t_scene *scene,char **splitted)
-{
-    scene->ambient = malloc(sizeof(t_ambient));
-    if(number_sp(splitted) != 3)
-    {
-        printf("error!");
-        exit(1);
-    }
-    scene->ambient->ambience = ft_atoi(splitted[1]);
-    scene->ambient->color = get_color(splitted[2]);
 }
 
 static bool parse_line(t_scene *scene, char *line)
@@ -50,20 +38,26 @@ static bool parse_line(t_scene *scene, char *line)
 
     splitted = ft_split(line, ' ');
     if (!splitted)
-    {
         return false;
-    }
-
     if (!splitted[0])
-    {
         return true;
-    }
-
     if (ft_strcmp(splitted[0], "A") == 0)
         ambient(scene, splitted);
     else if (ft_strcmp(splitted[0], "C") == 0)
         camera(scene, splitted);
-    // ---------// cntn
+    else if (ft_strcmp(splitted[0], "L") == 0)
+        light(scene, splitted);
+    else if (ft_strcmp(splitted[0], "sp") == 0)
+        spher(scene, splitted);
+    else if (ft_strcmp(splitted[0], "pl") == 0)
+        plan(scene, splitted);
+    else if (ft_strcmp(splitted[0], "cy") == 0)
+        cylinde(scene, splitted);
+    else
+    {
+        printf("error: invalid identifier '%s'!\n", splitted[0]);
+        result = false;
+    }
     return result;
 }
 

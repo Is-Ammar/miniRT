@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 # -------------------------------- iammar -------------------------------- #
 
-SRC = 	main.c parsing/helpers.c parsing/ft_split.c parsing/helpers2.c parsing/parse.c parsing/camera.c
+SRC = 	main.c parsing/helpers.c parsing/ft_split.c parsing/helpers2.c parsing/parse.c parsing/camera.c parsing/light.c parsing/scene_elements.c
 
 
 # -------------------------------------------------------------------------- #
