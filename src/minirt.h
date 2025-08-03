@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/02 20:53:42 by iammar           ###   ########.fr       */
+/*   Updated: 2025/08/03 14:22:23 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include "/home/iammar/miniRT/minilibx-linux/mlx.h"
 
 # define WIDTH 800
 # define HEIGHT 600
+# define ESC 65307
 
 typedef struct s_atoi
 {

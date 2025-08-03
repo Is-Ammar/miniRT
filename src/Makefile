@@ -2,14 +2,12 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-# MLX_LINK =  -L/usr/include/minilibx-linux -lmlx -lXext -lX11 -lm
+MLX_PATH = /home/iammar/miniRT/minilibx-linux
+MLX_LINK = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm
 
 # -------------------------------- iammar -------------------------------- #
 
 SRC = 	main.c parsing/helpers.c parsing/ft_split.c parsing/helpers2.c parsing/parse.c parsing/camera.c parsing/light.c parsing/scene_elements.c
-
-
-# -------------------------------------------------------------------------- #
 
 OBJ = ${SRC:%.c=%.o}
 
@@ -22,10 +20,10 @@ NAME = minirt
 all: ${NAME}
 
 %.o: %.c
-	${CC} ${CFLAGS} -c $< -o $@ 
+	${CC} ${CFLAGS} -I$(MLX_PATH) -c $< -o $@ 
 
 ${NAME}: ${OBJ}
-	${CC} ${CFLAGS} ${OBJ} -o $@
+	${CC} ${CFLAGS} ${OBJ} ${MLX_LINK} -o $@
 
 clean:
 	${RM} ${OBJ}  
@@ -39,4 +37,4 @@ bonus: all
 
 .PHONY: all clean fclean re
 
-.SECONDARY: ${OBJ} 
+.SECONDARY: ${OBJ}
