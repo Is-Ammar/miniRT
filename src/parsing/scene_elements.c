@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 20:36:24 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/02 20:52:15 by iammar           ###   ########.fr       */
+/*   Updated: 2025/08/04 16:23:00 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void ambient(t_scene *scene,char **splitted)
         printf("error: invalid ambient parameters!\n");
         exit(1);
     }
-    scene->ambient->ambience = ft_atoi(splitted[1]);
+    scene->ambient->intensity = ft_atoi(splitted[1]);
     scene->ambient->color = get_color(splitted[2]);
 }
 
@@ -32,7 +32,7 @@ void spher(t_scene *scene, char **splitted)
         printf("error: invalid sphere parameters!\n");
         exit(1);
     }
-    scene->sphere->coordinate = get_cordinate(splitted[1]);
+    scene->sphere->center = get_cordinate(splitted[1]);
     scene->sphere->diameter = ft_atoi(splitted[2]);
     scene->sphere->color = get_color(splitted[3]);
 }
@@ -45,13 +45,13 @@ void plan(t_scene *scene, char **splitted)
         printf("error: invalid plane parameters!\n");
         exit(1);
     }
-    scene->plane->coordinate = get_cordinate(splitted[1]);
-    scene->plane->vector = get_vector(splitted[2]);
+    scene->plane->point = get_cordinate(splitted[1]);
+    scene->plane->normal = get_vector(splitted[2]);
     scene->plane->color = get_color(splitted[3]);
 
-    if (scene->plane->vector->x < -1 || scene->plane->vector->x > 1 || 
-        scene->plane->vector->y < -1 || scene->plane->vector->y > 1 || 
-        scene->plane->vector->z < -1 || scene->plane->vector->z > 1)
+    if (scene->plane->normal->x < -1 || scene->plane->normal->x > 1 || 
+        scene->plane->normal->y < -1 || scene->plane->normal->y > 1 || 
+        scene->plane->normal->z < -1 || scene->plane->normal->z > 1)
     {
         printf("error: normal vector must be in range [-1,1]!\n");
         exit(1);
@@ -66,14 +66,14 @@ void cylinde(t_scene *scene, char **splitted)
         printf("error: invalid cylinder parameters!");
         exit(1);
     }
-    scene->cylinder->coordinate = get_cordinate(splitted[1]);
-    scene->cylinder->vector = get_vector(splitted[2]);
+    scene->cylinder->center = get_cordinate(splitted[1]);
+    scene->cylinder->axis = get_vector(splitted[2]);
     scene->cylinder->diameter = ft_atoi(splitted[3]);
     scene->cylinder->height = ft_atoi(splitted[4]);
     scene->cylinder->color = get_color(splitted[5]);
-    if (scene->cylinder->vector->x < -1 || scene->cylinder->vector->x > 1 || 
-        scene->cylinder->vector->y < -1 || scene->cylinder->vector->y > 1 || 
-        scene->cylinder->vector->z < -1 || scene->cylinder->vector->z > 1)
+    if (scene->cylinder->axis->x < -1 || scene->cylinder->axis->x > 1 || 
+        scene->cylinder->axis->y < -1 || scene->cylinder->axis->y > 1 || 
+        scene->cylinder->axis->z < -1 || scene->cylinder->axis->z > 1)
     {
         printf("error: axis vector must be in range [-1,1]!\n");
         exit(1);

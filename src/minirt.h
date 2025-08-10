@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/03 14:22:23 by iammar           ###   ########.fr       */
+/*   Updated: 2025/08/10 13:41:30 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,104 +19,113 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include "/home/iammar/miniRT/minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx.h"
 
-# define WIDTH 800
-# define HEIGHT 600
-# define ESC 65307
+# define WIDTH       800
+# define HEIGHT      600
+# define ESC         65307
 
-typedef struct s_atoi
+typedef struct s_vec3
 {
-	float		r;
-	float		f;
-	float		d;
-	int			s;
-}				t_atoi;
+    float x;
+    float y;
+    float z;
+} t_vec3;
 
-typedef struct s_cor
-{
-	float		x;
-	float		y;
-	float		z;
-}				t_cor;
+typedef t_vec3 t_cor;
+typedef t_vec3 t_vector;
 
-typedef struct s_color
-{
-	int			r;
-	int			g;
-	int			b;
-}				t_color;
 
-typedef struct s_vector
+typedef struct s_color 
 {
-	float		x;
-	float		y;
-	float		z;
-}				t_vector;
+    int r;
+    int g;
+    int b;
+} t_color;
 
-typedef struct s_camera
+typedef struct s_camera 
 {
-	t_cor		*coordinate;
-	t_vector	*vector;
-	int			fov;
-}				t_camera;
+    t_cor      *position;
+    t_vector   *direction;
+    int        fov;
+} t_camera;
 
-typedef struct s_light
-{
-	t_cor		*coordinate;
-	float		brightness;
-	t_color		*color;
-}				t_light;
 
-typedef struct s_ambient
+typedef struct s_light 
 {
-	float		ambience;
-	t_color		*color;
-}				t_ambient;
+    t_cor      *position;
+    float      brightness;
+    t_color    *color;
+} t_light;
 
-typedef struct s_plane
-{
-	t_cor		*coordinate;
-	t_vector	*vector;
-	t_color		*color;
-}				t_plane;
 
-typedef struct s_sphere
+typedef struct s_ambient 
 {
-	t_cor		*coordinate;
-	float		diameter;
-	t_color		*color;
-}				t_sphere;
+    float      intensity;
+    t_color    *color;
+} t_ambient;
 
-typedef struct s_cylinder
-{
-	t_cor		*coordinate;
-	t_vector	*vector;
-	float		diameter;
-	float		height;
-	t_color		*color;
-}				t_cylinder;
 
-typedef struct s_scene
+typedef struct s_plane 
 {
-	t_sphere	*sphere;
-	t_cylinder	*cylinder;
-	t_plane		*plane;
-	t_camera	*camera;
-	t_light		*light;
-	t_ambient	*ambient;
-}				t_scene;
+    t_cor      *point;
+    t_vector   *normal;
+    t_color    *color;
+} t_plane;
 
-typedef struct s_mlx_data
+
+typedef struct s_sphere 
 {
-	void		*mlx;
-	void		*win;
-	void		*img;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-}				t_mlx_data;
+    t_cor      *center;
+    float      diameter;
+    t_color    *color;
+} t_sphere;
+
+
+typedef struct s_cylinder 
+{
+    t_cor      *center;
+    t_vector   *axis;
+    float      diameter;
+    float      height;
+    t_color    *color;
+} t_cylinder;
+
+
+typedef struct s_scene 
+{
+    t_ambient  *ambient;
+    t_camera   *camera;
+    t_light    *light;
+    
+
+    t_sphere   *sphere;
+    t_plane    *plane;
+    t_cylinder *cylinder;
+    
+} t_scene;
+
+
+typedef struct s_mlx_data 
+{
+    void       *mlx;
+    void       *win;
+    void       *img;
+    char       *addr;
+    int        bits_per_pixel;
+    int        line_length;
+    int        endian;
+} t_mlx_data;
+
+
+
+typedef struct s_atoi 
+{
+    float r;
+    float f;
+    float d;
+    int   s;
+} t_atoi;
 
 char			*ft_strdup(char *src);
 float			ft_atoi(const char *str);

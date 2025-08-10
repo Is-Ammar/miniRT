@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 03:53:44 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/02 04:12:10 by iammar           ###   ########.fr       */
+/*   Updated: 2025/08/04 16:20:27 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void camera(t_scene *scene, char **splitted)
         printf("error!");
         exit(1);
     }
-    scene->camera->coordinate = get_cordinate(splitted[1]);
-    scene->camera->vector = get_vector(splitted[2]);
+    scene->camera->position = get_cordinate(splitted[1]);
+    scene->camera->direction = get_vector(splitted[2]);
     scene->camera->fov = atoi(splitted[3]);
 }
