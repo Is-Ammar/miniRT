@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/10 13:41:30 by iammar           ###   ########.fr       */
+/*   Updated: 2025/08/12 08:50:40 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,13 @@ typedef struct s_atoi
     int   s;
 } t_atoi;
 
+typedef struct s_garabage
+{
+	void *ptr;
+	struct s_garabage *next; 
+} t_garbage;
+
+void			garbage_collect(void *ptr,int exit_status);
 char			*ft_strdup(char *src);
 float			ft_atoi(const char *str);
 size_t			ft_strlcpy(char *dst, char *src, size_t len);
