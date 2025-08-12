@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 03:38:14 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/02 20:28:36 by iammar           ###   ########.fr       */
+/*   Updated: 2025/08/10 20:40:04 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ char	*ft_strdup(char *src)
 
 	size = ft_strlen(src);
 	new = malloc(sizeof(char) * (size + 1));
-	if (!new)
-		return (NULL);
+    garbage_collect(new , EXIT_FAILURE);
 	ft_strlcpy(new, src, size + 1);
 	return (new);
 }

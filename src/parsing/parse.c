@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 03:39:51 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/02 20:36:52 by iammar           ###   ########.fr       */
+/*   Updated: 2025/08/10 20:42:29 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 t_color *get_color(char *str)
 {
-    t_color *color = malloc(sizeof(t_color));
     char **rgb;
+    t_color *color = malloc(sizeof(t_color));
+    garbage_collect(color , EXIT_FAILURE);
     rgb = ft_split(str, ',');
     if(number_sp(rgb) != 3)
     {
         printf("error: invalid color values\n");
-        exit(1);
+        garbage_collect(NULL, EXIT_FAILURE);
     }
     color->r = atoi(rgb[0]);
     color->g = atoi(rgb[1]);
@@ -67,6 +68,7 @@ t_scene *parse_file(char *file)
     int fd ;
     char *line ;
     t_scene *scene = malloc(sizeof(t_scene));
+    garbage_collect(scene , EXIT_FAILURE);
     fd = open(file, O_RDWR);
     if (!scene)
         return NULL;

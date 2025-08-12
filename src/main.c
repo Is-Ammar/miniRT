@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:37 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/03 14:34:00 by iammar           ###   ########.fr       */
+/*   Updated: 2025/08/10 20:52:10 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,10 @@ int __exit(t_mlx_data *data)
         if (data->win && data->mlx)
             mlx_destroy_window(data->mlx, data->win);
         if (data->mlx)
-        {
             mlx_destroy_display(data->mlx);
-            free(data->mlx);
-        }
-        free(data);
     }
-    exit(0);
+    garbage_collect(NULL, EXIT_SUCCESS);
+    return (0);
 }
 
 int	key_hook(int key_code, t_mlx_data *data)
@@ -40,8 +37,10 @@ int	key_hook(int key_code, t_mlx_data *data)
 void init_mlx(t_mlx_data *data)
 {
     data = malloc(sizeof(t_mlx_data));
+    garbage_collect(data , EXIT_FAILURE);
     memset(data, 0, sizeof(t_mlx_data));
     data->mlx = mlx_init();
+    garbage_collect(data->mlx , EXIT_FAILURE);
     data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "miniRT");
     data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
     data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);

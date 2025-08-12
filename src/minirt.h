@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/03 14:22:23 by iammar           ###   ########.fr       */
+/*   Updated: 2025/08/10 21:44:14 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include "/home/iammar/miniRT/minilibx-linux/mlx.h"
+# include "/home/yel-alja/Desktop/miniRT/minilibx-linux/mlx.h"
 
 # define WIDTH 800
 # define HEIGHT 600
@@ -118,6 +118,13 @@ typedef struct s_mlx_data
 	int			endian;
 }				t_mlx_data;
 
+typedef struct s_garabage
+{
+	void *ptr;
+	struct s_garabage *next; 
+} t_garbage;
+
+void			garbage_collect(void *ptr,int exit_status);
 char			*ft_strdup(char *src);
 float			ft_atoi(const char *str);
 size_t			ft_strlcpy(char *dst, char *src, size_t len);

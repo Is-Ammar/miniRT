@@ -2,12 +2,12 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-MLX_PATH = /home/iammar/miniRT/minilibx-linux
+MLX_PATH = /home/yel-alja/Desktop/miniRT/minilibx-linux
 MLX_LINK = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm
 
 # -------------------------------- iammar -------------------------------- #
 
-SRC = 	main.c parsing/helpers.c parsing/ft_split.c parsing/helpers2.c parsing/parse.c parsing/camera.c parsing/light.c parsing/scene_elements.c
+SRC = 	main.c parsing/helpers.c parsing/ft_split.c parsing/helpers2.c parsing/parse.c parsing/camera.c parsing/light.c parsing/scene_elements.c parsing/garbage_collector.c
 
 OBJ = ${SRC:%.c=%.o}
 

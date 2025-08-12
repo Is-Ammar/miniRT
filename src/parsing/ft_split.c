@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 03:11:53 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/02 03:50:41 by iammar           ###   ########.fr       */
+/*   Updated: 2025/08/10 20:38:59 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ char	*get_next_word(const char **s, char c)
 		(*s)++;
 	length = *s - start;
 	word = malloc(length + 1);
-	if (!word)
-		return (NULL);
+	garbage_collect(word , EXIT_FAILURE);
 	i = 0;
 	while (i < length)
 	{
@@ -61,18 +60,6 @@ char	*get_next_word(const char **s, char c)
 	return (word);
 }
 
-void	free_split(char **result)
-{
-	int	j;
-
-	j = 0;
-	while (result[j])
-	{
-		free(result[j]);
-		j++;
-	}
-	free(result);
-}
 
 char	**ft_split(char const *s, char c)
 {
@@ -85,16 +72,10 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	word_count = count_words(s, c);
 	result = malloc((word_count + 1) * sizeof(char *));
-	if (!result)
-		return (NULL);
+	garbage_collect(result, EXIT_FAILURE);
 	while (i < word_count)
 	{
 		result[i] = get_next_word(&s, c);
-		if (!result[i])
-		{
-			free_split(result);
-			return (NULL);
-		}
 		i++;
 	}
 	result[word_count] = NULL;
