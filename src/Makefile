@@ -2,7 +2,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-MLX_PATH = /home/iammar/miniRT/minilibx-linux
+MLX_PATH = ../minilibx-linux
 MLX_LINK = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm
 
 # -------------------------------- iammar -------------------------------- #
