@@ -51,11 +51,10 @@ void init_mlx(t_mlx_data *data)
 int main(int ac , char **av)
 {
     t_scene *scene = NULL;
-    t_mlx_data *data = NULL;;
     if(ac == 2)
     {
         scene = parse_file(av[1]);
     }
-    init_mlx(data);
+    init_mlx(scene->data);
     // render(data);
 }

@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <math.h>
 # include "../minilibx-linux/mlx.h"
 
 # define WIDTH       800
@@ -91,6 +92,16 @@ typedef struct s_cylinder
     t_color    *color;
 } t_cylinder;
 
+typedef struct s_mlx_data 
+{
+    void       *mlx;
+    void       *win;
+    void       *img;
+    char       *addr;
+    int        bits_per_pixel;
+    int        line_length;
+    int        endian;
+} t_mlx_data;
 
 typedef struct s_scene 
 {
@@ -103,19 +114,8 @@ typedef struct s_scene
     t_plane    *plane;
     t_cylinder *cylinder;
     
+    t_mlx_data  *data;
 } t_scene;
-
-
-typedef struct s_mlx_data 
-{
-    void       *mlx;
-    void       *win;
-    void       *img;
-    char       *addr;
-    int        bits_per_pixel;
-    int        line_length;
-    int        endian;
-} t_mlx_data;
 
 
 
