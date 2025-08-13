@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 03:53:44 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/12 08:51:02 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/08/13 09:58:30 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_vector *get_vector(char *str)
 
 void camera(t_scene *scene, char **splitted)
 {
-    scene->camera = malloc(sizeof(t_ambient));
+    scene->camera = malloc(sizeof(t_camera));
     garbage_collect(scene->camera , EXIT_FAILURE);
     if(number_sp(splitted) != 4)
     {

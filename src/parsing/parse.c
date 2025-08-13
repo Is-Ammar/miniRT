@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 03:39:51 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/10 20:42:29 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/08/13 11:24:19 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ static bool parse_line(t_scene *scene, char *line)
     else if (ft_strcmp(splitted[0], "L") == 0)
         light(scene, splitted);
     else if (ft_strcmp(splitted[0], "sp") == 0)
-        spher(scene, splitted);
+        sphere_back(&scene->sphere, spher(splitted));
     else if (ft_strcmp(splitted[0], "pl") == 0)
-        plan(scene, splitted);
+        plane_back(&scene->plane ,plan(splitted));
     else if (ft_strcmp(splitted[0], "cy") == 0)
-        cylinde(scene, splitted);
+        cylinder_back(&scene->cylinder,  cylinde(splitted));
     else
     {
         printf("error: invalid identifier '%s'!\n", splitted[0]);

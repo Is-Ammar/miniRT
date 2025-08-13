@@ -6,11 +6,108 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:37 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/10 20:52:10 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/08/13 11:17:52 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static void print_vec3(const char *name, t_vec3 *v)
+{
+    if (!v)
+    {
+        printf("%s: (null)\n", name);
+        return;
+    }
+    printf("%s: (%.2f, %.2f, %.2f)\n", name, v->x, v->y, v->z);
+}
+
+static void print_color(const char *name, t_color *c)
+{
+    if (!c)
+    {
+        printf("%s: (null)\n", name);
+        return;
+    }
+    printf("%s: (R=%d, G=%d, B=%d)\n", name, c->r, c->g, c->b);
+}
+
+void print_scene(t_scene *scene)
+{
+    if (!scene)
+    {
+        printf("Scene is NULL\n");
+        return;
+    }
+
+    printf("=== SCENE ===\n");
+
+    // Ambient
+    if (scene->ambient)
+    {
+        printf("[Ambient]\n");
+        printf("  Intensity: %.2f\n", scene->ambient->intensity);
+        print_color("  Color", scene->ambient->color);
+    }
+
+    // Camera
+    if (scene->camera)
+    {
+        printf("[Camera]\n");
+        print_vec3("  Position", scene->camera->position);
+        print_vec3("  Direction", scene->camera->direction);
+        printf("  FOV: %d\n", scene->camera->fov);
+    }
+
+    // Light
+    if (scene->light)
+    {
+        printf("[Light]\n");
+        print_vec3("  Position", scene->light->position);
+        printf("  Brightness: %.2f\n", scene->light->brightness);
+        print_color("  Color", scene->light->color);
+    }
+
+    // Spheres
+    t_sphere *sp = scene->sphere;
+    int i = 1;
+    while (sp)
+    {
+        printf("[Sphere %d]\n", i++);
+        print_vec3("  Center", sp->center);
+        printf("  Diameter: %.2f\n", sp->diameter);
+        print_color("  Color", sp->color);
+        sp = sp->next;
+    }
+
+    // Planes
+    t_plane *pl = scene->plane;
+    i = 1;
+    while (pl)
+    {
+        printf("[Plane %d]\n", i++);
+        print_vec3("  Point", pl->point);
+        print_vec3("  Normal", pl->normal);
+        print_color("  Color", pl->color);
+        pl = pl->next;
+    }
+
+    // Cylinders
+    t_cylinder *cy = scene->cylinder;
+    i = 1;
+    while (cy)
+    {
+        printf("[Cylinder %d]\n", i++);
+        print_vec3("  Center", cy->center);
+        print_vec3("  Axis", cy->axis);
+        printf("  Diameter: %.2f\n", cy->diameter);
+        printf("  Height: %.2f\n", cy->height);
+        print_color("  Color", cy->color);
+        cy = cy->next;
+    }
+
+    printf("=== END SCENE ===\n");
+}
 
 int __exit(t_mlx_data *data)
 {
@@ -55,7 +152,14 @@ int main(int ac , char **av)
     if(ac == 2)
     {
         scene = parse_file(av[1]);
+        print_scene(scene);
+        init_mlx(data);
     }
-    init_mlx(data);
+    else
+    {
+        fd_putstr(2 , "Usage: ./minirt 'a scene in format *.rt'\n");
+        return (1);
+    }
+        
     // render(data);
 }

@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/12 08:50:40 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/08/13 11:23:32 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_plane
     t_cor      *point;
     t_vector   *normal;
     t_color    *color;
+    struct s_plane *next;
 } t_plane;
 
 
@@ -79,6 +80,7 @@ typedef struct s_sphere
     t_cor      *center;
     float      diameter;
     t_color    *color;
+    struct s_sphere *next;
 } t_sphere;
 
 
@@ -89,6 +91,7 @@ typedef struct s_cylinder
     float      diameter;
     float      height;
     t_color    *color;
+    struct s_cylinder *next;
 } t_cylinder;
 
 
@@ -97,12 +100,9 @@ typedef struct s_scene
     t_ambient  *ambient;
     t_camera   *camera;
     t_light    *light;
-    
-
     t_sphere   *sphere;
     t_plane    *plane;
     t_cylinder *cylinder;
-    
 } t_scene;
 
 
@@ -133,7 +133,6 @@ typedef struct s_garabage
 	struct s_garabage *next; 
 } t_garbage;
 
-void			garbage_collect(void *ptr,int exit_status);
 char			*ft_strdup(char *src);
 float			ft_atoi(const char *str);
 size_t			ft_strlcpy(char *dst, char *src, size_t len);
@@ -148,8 +147,12 @@ void			light(t_scene *scene, char **splitted);
 t_color			*get_color(char *str);
 t_vector		*get_vector(char *str);
 void			ambient(t_scene *scene, char **splitted);
-void			spher(t_scene *scene, char **splitted);
-void			plan(t_scene *scene, char **splitted);
-void			cylinde(t_scene *scene, char **splitted);
-
+t_sphere		*spher(char **splitted);
+t_plane			*plan(char **splitted);
+void            fd_putstr(int fd, char *str);
+t_cylinder     *cylinde(char **splitted);
+void            sphere_back(t_sphere **sphere , t_sphere *new);
+void            plane_back(t_plane **plane , t_plane *new);
+void            cylinder_back(t_cylinder **cylinder , t_cylinder *new);
+void			garbage_collect(void *ptr,int exit_status);
 #endif

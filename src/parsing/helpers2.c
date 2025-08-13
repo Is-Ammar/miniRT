@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 03:38:14 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/10 20:40:04 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/08/12 18:46:34 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,9 @@ int number_sp(char **splitted)
         i++;
     }
     return(i);
+}
+
+void fd_putstr(int fd, char *str)
+{
+    write(fd , str , ft_strlen(str));
 }
