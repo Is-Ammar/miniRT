@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:37 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/13 11:17:52 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/08/13 11:35:09 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,12 +148,12 @@ void init_mlx(t_mlx_data *data)
 int main(int ac , char **av)
 {
     t_scene *scene = NULL;
-    t_mlx_data *data = NULL;;
+    
     if(ac == 2)
     {
         scene = parse_file(av[1]);
         print_scene(scene);
-        init_mlx(data);
+        init_mlx(scene->data);
     }
     else
     {

@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/13 11:23:32 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/08/13 11:35:42 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <math.h>
 # include "../minilibx-linux/mlx.h"
 
 # define WIDTH       800
@@ -94,18 +95,6 @@ typedef struct s_cylinder
     struct s_cylinder *next;
 } t_cylinder;
 
-
-typedef struct s_scene 
-{
-    t_ambient  *ambient;
-    t_camera   *camera;
-    t_light    *light;
-    t_sphere   *sphere;
-    t_plane    *plane;
-    t_cylinder *cylinder;
-} t_scene;
-
-
 typedef struct s_mlx_data 
 {
     void       *mlx;
@@ -116,6 +105,17 @@ typedef struct s_mlx_data
     int        line_length;
     int        endian;
 } t_mlx_data;
+
+typedef struct s_scene 
+{
+    t_ambient  *ambient;
+    t_camera   *camera;
+    t_light    *light;
+    t_sphere   *sphere;
+    t_plane    *plane;
+    t_cylinder *cylinder;
+     t_mlx_data  *data;
+} t_scene;
 
 
 
