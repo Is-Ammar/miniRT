@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 03:39:51 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/13 11:24:19 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/08/23 00:58:48 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ t_color *get_color(char *str)
     color->r = atoi(rgb[0]);
     color->g = atoi(rgb[1]);
     color->b = atoi(rgb[2]);
+    if(color->r > 255 || color->r < 0 || color->b > 255 || color->b < 0 || color->g > 255 || color->g < 0)
+    {
+        printf("error: invalid color values\n");
+        garbage_collect(NULL, EXIT_FAILURE);
+    }
     return color;
 }
 

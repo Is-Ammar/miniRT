@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 20:36:24 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/13 11:25:51 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/08/20 10:22:46 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void ambient(t_scene *scene,char **splitted)
 {
     scene->ambient = malloc(sizeof(t_ambient));
     garbage_collect(scene->ambient , EXIT_FAILURE);
-    if(number_sp(splitted) != 3)
+    if(number_sp(splitted) != 3  || (ft_atoi(splitted[1]) > 1 || ft_atoi(splitted[1]) < 0))
     {
         fd_putstr(2 ,"Error\n: invalid ambient parameters!\n");
         garbage_collect(NULL , EXIT_FAILURE);
