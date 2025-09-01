@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:37 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/13 11:35:09 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/08/31 21:26:21 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ void print_scene(t_scene *scene)
         printf("[Camera]\n");
         print_vec3("  Position", scene->camera->position);
         print_vec3("  Direction", scene->camera->direction);
+        print_vec3("  right" , &scene->camera->right_vec);
+        print_vec3("  up" , &scene->camera->up_vec);
+        printf("  plane height: %f\n", scene->camera->plane_height);
+        printf("  plane width: %f\n", scene->camera->plane_width);
         printf("  FOV: %d\n", scene->camera->fov);
     }
 
@@ -136,6 +140,7 @@ void init_mlx(t_mlx_data *data)
     data = malloc(sizeof(t_mlx_data));
     garbage_collect(data , EXIT_FAILURE);
     memset(data, 0, sizeof(t_mlx_data));
+    *data = (t_mlx_data){0}; 
     data->mlx = mlx_init();
     garbage_collect(data->mlx , EXIT_FAILURE);
     data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "miniRT");
@@ -152,6 +157,8 @@ int main(int ac , char **av)
     if(ac == 2)
     {
         scene = parse_file(av[1]);
+        put_camera(scene->camera);
+        // raytracer(scene);
         print_scene(scene);
         init_mlx(scene->data);
     }
@@ -160,6 +167,6 @@ int main(int ac , char **av)
         fd_putstr(2 , "Usage: ./minirt 'a scene in format *.rt'\n");
         return (1);
     }
-        
+    
     // render(data);
 }

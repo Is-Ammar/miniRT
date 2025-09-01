@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/13 11:35:42 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:22:46 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ typedef struct s_camera
 {
     t_cor      *position;
     t_vector   *direction;
-    int        fov;
+    t_vec3      up_vec;      
+    t_vec3      right_vec;      
+    double      plane_width;
+    double      plane_height;
+    int         fov;
 } t_camera;
 
 
@@ -127,6 +131,12 @@ typedef struct s_atoi
     int   s;
 } t_atoi;
 
+typedef struct s_ray
+{
+    t_vec3 vec;
+    t_vec3 dir;
+} t_ray;
+
 typedef struct s_garabage
 {
 	void *ptr;
@@ -155,4 +165,17 @@ void            sphere_back(t_sphere **sphere , t_sphere *new);
 void            plane_back(t_plane **plane , t_plane *new);
 void            cylinder_back(t_cylinder **cylinder , t_cylinder *new);
 void			garbage_collect(void *ptr,int exit_status);
+
+
+//math
+t_vec3 vec_sub(t_vec3 v1, t_vec3 v2);
+float vec_dot(t_vec3 v1, t_vec3 v2);
+t_vec3 vec_cro(t_vec3 v1 , t_vec3 v2);
+t_vec3 vec_add(t_vec3 v1 , t_vec3 v2);
+t_vec3 vec_nor(t_vec3 v);
+
+
+//test
+
+void	put_camera(t_camera *camera);
 #endif

@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 03:53:44 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/23 16:32:03 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/08/30 10:52:18 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_cor *get_cordinate(char *str)
     cor = ft_split(str, ',');
     if(number_sp(cor) != 3)
     {
-        printf("error: values");//?
+        fd_putstr(2 , "Error:\ninvalid cordinate parameter");
         garbage_collect(NULL , EXIT_FAILURE);
     }
     cordin->x = ft_atoi(cor[0]);
@@ -52,10 +52,17 @@ void camera(t_scene *scene, char **splitted)
     garbage_collect(scene->camera , EXIT_FAILURE);
     if(number_sp(splitted) != 4)
     {
-        printf("Error:\n invalid camera parameter"); ///?
+        fd_putstr(2 ,"Error:\ninvalid camera parameter");
         garbage_collect(NULL , EXIT_FAILURE);
     }
     scene->camera->position = get_cordinate(splitted[1]);
     scene->camera->direction = get_vector(splitted[2]); //should we check for range here should x ,y ,z been in [-1 ,1] range
-    scene->camera->fov = atoi(splitted[3]);
+    scene->camera->fov = ft_atoi(splitted[3]);
+    scene->camera->plane_height = 0;
+    scene->camera->plane_width = 0;
+    if(scene->camera->fov > 180 || scene->camera->fov < 0)
+    {
+        fd_putstr(2 , "Error:\ninvalid camera FOV\n");
+        garbage_collect(NULL, EXIT_FAILURE);
+    }
 }

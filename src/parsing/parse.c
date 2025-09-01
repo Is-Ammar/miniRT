@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 03:39:51 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/23 00:58:48 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/08/30 08:09:18 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ t_color *get_color(char *str)
         printf("error: invalid color values\n");
         garbage_collect(NULL, EXIT_FAILURE);
     }
-    color->r = atoi(rgb[0]);
-    color->g = atoi(rgb[1]);
-    color->b = atoi(rgb[2]);
+    color->r = ft_atoi(rgb[0]);
+    color->g = ft_atoi(rgb[1]);
+    color->b = ft_atoi(rgb[2]);
     if(color->r > 255 || color->r < 0 || color->b > 255 || color->b < 0 || color->g > 255 || color->g < 0)
     {
         printf("error: invalid color values\n");
@@ -75,13 +75,16 @@ t_scene *parse_file(char *file)
     t_scene *scene = malloc(sizeof(t_scene));
     garbage_collect(scene , EXIT_FAILURE);
     fd = open(file, O_RDWR);
-    if (!scene)
-        return NULL;
-    memset(scene, 0, sizeof(t_scene));
+    if (fd == -1)
+    {
+        fd_putstr(2, "Error:\nopen faild");
+        garbage_collect(NULL , EXIT_FAILURE);
+    }
+    *scene = (t_scene){0};
     while ((line = gnl(fd)) != NULL)
     {
         if(!parse_line(scene, line))
-            return NULL;
+            garbage_collect(NULL , EXIT_FAILURE);
     }
     return scene;
 }
