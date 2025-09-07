@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 09:57:17 by yel-alja          #+#    #+#             */
-/*   Updated: 2025/08/31 09:57:58 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/07 08:49:56 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void ray_tracer(t_scene *scene)
 {
         int x = 0;
         int y = 0;
-        // t_ray *ray;
+        t_ray *ray;
         
         
 
@@ -31,6 +31,7 @@ void ray_tracer(t_scene *scene)
                 while(y < HEIGHT)
                 {
                         // ray = generate_ray(scene , x , y);
+                        // 
                         y++;
                 }
                 x++;
