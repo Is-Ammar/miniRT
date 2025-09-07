@@ -131,35 +131,39 @@ int	key_hook(int key_code, t_mlx_data *data)
 	return (0);
 }
 
-void init_mlx(t_mlx_data *data)
+void init_mlx(t_scene *scene)
 {
-    data = malloc(sizeof(t_mlx_data));
-    garbage_collect(data , EXIT_FAILURE);
-    memset(data, 0, sizeof(t_mlx_data));
-    data->mlx = mlx_init();
-    garbage_collect(data->mlx , EXIT_FAILURE);
-    data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "miniRT");
-    data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-    data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
-    mlx_key_hook(data->win, key_hook, data);
-    mlx_hook(data->win, 17, 0, __exit, data);
-    mlx_loop(data->mlx);
+    scene->data = malloc(sizeof(t_mlx_data));
+    garbage_collect(scene->data, EXIT_FAILURE);
+    memset(scene->data, 0, sizeof(t_mlx_data));
+    scene->data->mlx = mlx_init();
+    garbage_collect(scene->data->mlx, EXIT_FAILURE);
+    scene->data->win = mlx_new_window(scene->data->mlx, WIDTH, HEIGHT, "miniRT");
+    scene->data->img = mlx_new_image(scene->data->mlx, WIDTH, HEIGHT);
+    scene->data->addr = mlx_get_data_addr(scene->data->img, &scene->data->bits_per_pixel, 
+                                         &scene->data->line_length, &scene->data->endian);
+    mlx_key_hook(scene->data->win, key_hook, scene);
+    mlx_hook(scene->data->win, 17, 0, __exit, scene->data);
 }
-int main(int ac , char **av)
+
+int main(int ac, char **av)
 {
     t_scene *scene = NULL;
     
     if(ac == 2)
     {
         scene = parse_file(av[1]);
+        if(!scene)
+        garbage_collect(NULL, EXIT_FAILURE);
         print_scene(scene);
-        init_mlx(scene->data);
+        init_mlx(scene);
+        // render(scene);
+        mlx_loop(scene->data->mlx);
     }
     else
     {
-        fd_putstr(2 , "Usage: ./minirt 'a scene in format *.rt'\n");
+        fd_putstr(2, "Usage: ./minirt 'a scene in format *.rt'\n");
         return (1);
     }
-        
-    // render(data);
+    return (0);
 }
