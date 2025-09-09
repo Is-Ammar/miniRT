@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/09 08:46:47 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:38:00 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ typedef struct s_camera
 {
     t_cor      *position;
     t_vector   *direction;
+    t_vec3      forward;      
     t_vec3      up_vec;      
-    t_vec3      right_vec;      
+    t_vec3      right_vec;
     double      plane_width;
     double      plane_height;
     int         fov;
@@ -173,6 +174,7 @@ float           vec_dot(t_vec3 v1, t_vec3 v2);
 t_vec3          vec_cro(t_vec3 v1 , t_vec3 v2);
 t_vec3          vec_add(t_vec3 v1 , t_vec3 v2);
 t_vec3          vec_nor(t_vec3 v);
+t_vec3          vec_scale(t_vec3 v , float s);
 
 
 //raytracing
