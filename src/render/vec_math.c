@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 14:17:54 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/30 11:01:26 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:46:01 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,15 @@ t_vec3 vec_nor(t_vec3 v)
     result.x = v.x / len;
     result.y = v.y / len;
     result.z = v.z / len;
+    return (result);
+}
+
+t_vec3 vec_scale(t_vec3 v , float s)
+{
+    t_vec3 result;
+
+    result.x = v.x * s;
+    result.y = v.y * s;
+    result.z = v.z * s;
     return (result);
 }

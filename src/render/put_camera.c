@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:17:19 by yel-alja          #+#    #+#             */
-/*   Updated: 2025/09/07 08:49:18 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:37:10 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	put_camera(t_camera *camera)
 	else
 		up = (t_vec3){0,  0,  1};
 	forward = (t_vec3 *)camera->direction;
+	camera->forward = *forward;
 	camera->right_vec = vec_nor(vec_cro(*forward, up));
 	camera->up_vec = vec_cro(camera->right_vec, *forward);
     camera->plane_width = 2 * tan(camera->fov * 0.0174533 / 2);
