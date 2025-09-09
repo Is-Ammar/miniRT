@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:37 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/31 21:26:21 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:44:42 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ int main(int ac , char **av)
     {
         scene = parse_file(av[1]);
         put_camera(scene->camera);
-        // raytracer(scene);
+        ray_tracer(scene);
         print_scene(scene);
         init_mlx(scene->data);
     }

@@ -6,22 +6,27 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 09:57:17 by yel-alja          #+#    #+#             */
-/*   Updated: 2025/09/07 08:49:56 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:49:23 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-// t_ray *generate_ray(t_scene *scene , int x , int y)
-// {
+void    generate_ray(t_scene *scene, t_ray *ray, int x, int y)
+{
+        int u;
+        int j;
         
-// }
+        u = (x + 0.5) / WIDTH;
+        j = (y + 0.5) / HEIGHT;
+        ray->vec = *(t_vec3 *)scene->camera->position;
+}
 
 void ray_tracer(t_scene *scene)
 {
         int x = 0;
         int y = 0;
-        t_ray *ray;
+        t_ray ray;
         
         
 
@@ -30,8 +35,8 @@ void ray_tracer(t_scene *scene)
                 y = 0;
                 while(y < HEIGHT)
                 {
-                        // ray = generate_ray(scene , x , y);
-                        // 
+                        generate_ray(scene, &ray, x, y);
+                        printf("%f\t%f\t%f\n" , ray.vec.x , ray.vec.y , ray.vec.z); 
                         y++;
                 }
                 x++;

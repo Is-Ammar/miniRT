@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/01 09:22:46 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:46:47 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,14 +168,14 @@ void			garbage_collect(void *ptr,int exit_status);
 
 
 //math
-t_vec3 vec_sub(t_vec3 v1, t_vec3 v2);
-float vec_dot(t_vec3 v1, t_vec3 v2);
-t_vec3 vec_cro(t_vec3 v1 , t_vec3 v2);
-t_vec3 vec_add(t_vec3 v1 , t_vec3 v2);
-t_vec3 vec_nor(t_vec3 v);
+t_vec3          vec_sub(t_vec3 v1, t_vec3 v2);
+float           vec_dot(t_vec3 v1, t_vec3 v2);
+t_vec3          vec_cro(t_vec3 v1 , t_vec3 v2);
+t_vec3          vec_add(t_vec3 v1 , t_vec3 v2);
+t_vec3          vec_nor(t_vec3 v);
 
 
-//test
-
-void	put_camera(t_camera *camera);
+//raytracing
+void            ray_tracer(t_scene *scene);
+void	        put_camera(t_camera *camera);
 #endif
