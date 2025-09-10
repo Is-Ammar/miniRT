@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/09 18:38:00 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/10 21:01:19 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # include <unistd.h>
 # include <math.h>
 # include "../minilibx-linux/mlx.h"
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 # define WIDTH       800
 # define HEIGHT      600
@@ -55,7 +59,6 @@ typedef struct s_camera
     double      plane_height;
     int         fov;
 } t_camera;
-
 
 typedef struct s_light 
 {
@@ -137,6 +140,17 @@ typedef struct s_ray
     t_vec3 vec;
     t_vec3 dir;
 } t_ray;
+
+
+typedef struct s_hit
+{
+    int hit;
+    float distance;
+    t_vec3 point;
+    t_vec3 normal;
+    t_color *color;
+} t_hit;
+
 
 typedef struct s_garabage
 {

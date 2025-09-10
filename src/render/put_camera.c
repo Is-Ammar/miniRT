@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   put_camera.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:17:19 by yel-alja          #+#    #+#             */
-/*   Updated: 2025/09/09 18:37:10 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/10 21:05:53 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-void	put_camera(t_camera *camera)
+void put_camera(t_camera *camera)
 {
-	t_vec3	up;
-	t_vec3	*forward;
+    t_vec3 up;
+    t_vec3 forward;
 
-	if (camera->direction->z != 0)
-		up = (t_vec3){1,  0,  0};
-	else
-		up = (t_vec3){0,  0,  1};
-	forward = (t_vec3 *)camera->direction;
-	camera->forward = *forward;
-	camera->right_vec = vec_nor(vec_cro(*forward, up));
-	camera->up_vec = vec_cro(camera->right_vec, *forward);
-    camera->plane_width = 2 * tan(camera->fov * 0.0174533 / 2);
-    camera->plane_height = camera->plane_width / (WIDTH / HEIGHT);
+    forward = vec_nor(*(camera->direction));
+    up = (t_vec3){0, 1, 0};
+    
+    if (fabs(vec_dot(forward, up)) > 0.99f)
+        up = (t_vec3){0, 0, 1};
+    camera->right_vec = vec_nor(vec_cro(forward, up));
+    camera->up_vec = vec_cro(camera->right_vec, forward);
+    float fov_rad = camera->fov * (M_PI / 180.0f);
+    camera->plane_width = 2.0f * tan(fov_rad / 2.0f);
+    camera->plane_height = camera->plane_width / WIDTH / HEIGHT;
 }
 
 

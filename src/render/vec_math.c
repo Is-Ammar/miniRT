@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vec_math.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 14:17:54 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/09 08:46:01 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/10 21:04:10 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-t_vec3 vec_sub(t_vec3 v1, t_vec3 v2)
+t_vec3 vec3_add(t_vec3 v1, t_vec3 v2)
 {
     t_vec3 result;
     result.x = v1.x - v2.x;
