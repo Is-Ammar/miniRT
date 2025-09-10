@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/01 09:22:46 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/09 19:55:09 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # include <unistd.h>
 # include <math.h>
 # include "../minilibx-linux/mlx.h"
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 # define WIDTH       800
 # define HEIGHT      600
@@ -54,7 +58,6 @@ typedef struct s_camera
     double      plane_height;
     int         fov;
 } t_camera;
-
 
 typedef struct s_light 
 {
@@ -137,6 +140,17 @@ typedef struct s_ray
     t_vec3 dir;
 } t_ray;
 
+
+typedef struct s_hit
+{
+    int hit;
+    float distance;
+    t_vec3 point;
+    t_vec3 normal;
+    t_color *color;
+} t_hit;
+
+
 typedef struct s_garabage
 {
 	void *ptr;
@@ -167,15 +181,13 @@ void            cylinder_back(t_cylinder **cylinder , t_cylinder *new);
 void			garbage_collect(void *ptr,int exit_status);
 
 
-//math
-t_vec3 vec_sub(t_vec3 v1, t_vec3 v2);
-float vec_dot(t_vec3 v1, t_vec3 v2);
-t_vec3 vec_cro(t_vec3 v1 , t_vec3 v2);
-t_vec3 vec_add(t_vec3 v1 , t_vec3 v2);
-t_vec3 vec_nor(t_vec3 v);
-
-
-//test
-
-void	put_camera(t_camera *camera);
+t_vec3 vec3_add(t_vec3 a, t_vec3 b);
+t_vec3 vec3_sub(t_vec3 a, t_vec3 b);
+t_vec3 vec3_scale(t_vec3 v, float scale);
+float vec3_dot(t_vec3 a, t_vec3 b);
+float vec3_length(t_vec3 v);
+t_vec3 vec3_normalize(t_vec3 v);
+t_vec3 vec3_cross(t_vec3 a, t_vec3 b);
+void put_camera(t_camera *camera);
+void ray_tracer(t_scene *scene);
 #endif
