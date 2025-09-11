@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:37 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/09 19:56:10 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/11 20:21:42 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,10 +159,10 @@ int main(int ac, char **av)
         scene = parse_file(av[1]);
         if(!scene)
         garbage_collect(NULL, EXIT_FAILURE);
+        init_mlx(scene);
         // put_camera(scene->camera);
         ray_tracer(scene);
         print_scene(scene);
-        init_mlx(scene);
         // render(scene);
         mlx_loop(scene->data->mlx);
     }

@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/09 19:55:09 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/11 20:02:36 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ typedef struct s_hit
     float distance;
     t_vec3 point;
     t_vec3 normal;
-    t_color *color;
+    t_color color;
 } t_hit;
 
 

@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:17:19 by yel-alja          #+#    #+#             */
-/*   Updated: 2025/09/08 18:37:17 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/11 20:11:12 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void put_camera(t_camera *camera)
     camera->up_vec = vec3_cross(camera->right_vec, forward);
     float fov_rad = camera->fov * (M_PI / 180.0f);
     camera->plane_width = 2.0f * tan(fov_rad / 2.0f);
-    camera->plane_height = camera->plane_width / WIDTH / HEIGHT;
+    camera->plane_height = camera->plane_width / (WIDTH / HEIGHT);
 }
 
 
