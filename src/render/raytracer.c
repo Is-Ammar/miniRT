@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 09:57:17 by yel-alja          #+#    #+#             */
-/*   Updated: 2025/09/11 20:41:12 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/11 22:03:38 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_ray	generate_ray(t_scene *scene, int x, int y)
         t_ray ray;
         
         float u = ((x + 0.5) / WIDTH  - 0.5) * scene->camera->plane_width;
-        float v = (0.5 - (y + 0.5 ) / HEIGHT) * scene->camera->plane_height;
+        float v = (0.5 - (y + 0.5) / HEIGHT) * scene->camera->plane_height;
 
         
         ray.vec = *((t_vec3 *)scene->camera->position);
@@ -26,6 +26,7 @@ t_ray	generate_ray(t_scene *scene, int x, int y)
                                           vec_scale(scene->camera->up_vec, v)));
         return ray;
 }
+
 
 void sphere_intersect(t_sphere *sphere, t_hit *hit, t_ray *ray)
 {
@@ -48,13 +49,15 @@ void sphere_intersect(t_sphere *sphere, t_hit *hit, t_ray *ray)
                 x = x1;
         }
         else 
-                x = -b / 2 * a;
-                
+                x = -b / (2 * a);
+        if (x > 0 && x < hit->distance)
+        {
         hit->hit = 1;
         hit->distance = x;
         hit->point = vec_add(ray->vec, vec_scale(ray->dir, x));
         hit->normal = vec_nor(vec_sub(hit->point, *sphere->center));
-        hit->color = (sphere->color->r << 16 | sphere->color->r << 8 | sphere->color->r);
+        hit->color = *sphere->color;
+        }
 }
 
 void	plan_intersect(t_plane *plan, t_hit *hit, t_ray ray)
@@ -71,7 +74,7 @@ void	plan_intersect(t_plane *plan, t_hit *hit, t_ray ray)
 	{
 		hit->distance = t;
 		hit->hit = 1;
-        hit->color = (plan->color->r << 16 | plan->color->g << 8 | plan->color->b);
+        hit->color = *plan->color;
 	}
 }
 
@@ -97,6 +100,12 @@ t_hit	trace_ray(t_scene *scene, t_ray ray)
         return hit;
 }
 
+
+// t_color calculate_lighting(t_scene *scene, t_hit hit)
+// {
+
+// }
+
 void	pixel_color(t_scene *scene, int x, int y, int color)
 {
 	int	*buffer;
@@ -121,7 +130,9 @@ void	ray_tracer(t_scene *scene)
                 {
                         ray = generate_ray(scene , x , y);
                         hit = trace_ray(scene, ray);
-                        pixel_color(scene, x, y , hit.color);
+                        // hit.color = calculate_lighting(scene, hit);
+                        int color = hit.color.r << 16 | hit.color.g << 8 | hit.color.b;
+                        pixel_color(scene, x, y , color);
                         x++;
                 }
                 y++;

@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/11 20:34:11 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/11 21:08:21 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ typedef struct s_hit
     float distance;
     t_vec3 point;
     t_vec3 normal;
-    int     color;
+    t_color     color;
 } t_hit;
 
 
@@ -189,6 +189,7 @@ t_vec3          vec_cro(t_vec3 v1 , t_vec3 v2);
 t_vec3          vec_add(t_vec3 v1 , t_vec3 v2);
 t_vec3          vec_nor(t_vec3 v);
 t_vec3          vec_scale(t_vec3 v , float s);
+float           vec_length(t_vec3 v);
 
 
 //raytracing

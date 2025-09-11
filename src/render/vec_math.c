@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec_math.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 14:17:54 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/11 18:01:52 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/11 21:07:57 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,9 @@ t_vec3	vec_scale(t_vec3 v, float s)
 	result.y = v.y * s;
 	result.z = v.z * s;
 	return (result);
+}
+
+float vec_length(t_vec3 v)
+{
+    return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 }
