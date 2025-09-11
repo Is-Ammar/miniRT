@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:37 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/10 20:59:24 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/11 18:14:30 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,9 +160,9 @@ int main(int ac, char **av)
         if(!scene)
         garbage_collect(NULL, EXIT_FAILURE);
         // put_camera(scene->camera);
+        init_mlx(scene);
         ray_tracer(scene);
         print_scene(scene);
-        init_mlx(scene);
         // render(scene);
         mlx_loop(scene->data->mlx);
     }

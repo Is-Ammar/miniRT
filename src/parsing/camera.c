@@ -12,68 +12,72 @@
 
 #include "../minirt.h"
 
-t_cor *get_cordinate(char *str)
+t_cor	*get_cordinate(char *str)
 {
-    char **cor;
-    t_cor *cordin = malloc(sizeof(t_cor));
-    garbage_collect(cordin , EXIT_FAILURE);
-    cor = ft_split(str, ',');
-    if(number_sp(cor) != 3)
-    {
-        fd_putstr(2 , "Error:\ninvalid cordinate parameter");
-        garbage_collect(NULL , EXIT_FAILURE);
-    }
-    cordin->x = ft_atoi(cor[0]);
-    cordin->y = ft_atoi(cor[1]);
-    cordin->z = ft_atoi(cor[2]);
-    return cordin;
+	char	**cor;
+	t_cor	*cordin;
+
+	cordin = malloc(sizeof(t_cor));
+	garbage_collect(cordin, EXIT_FAILURE);
+	cor = ft_split(str, ',');
+	if (number_sp(cor) != 3)
+	{
+		fd_putstr(2, "Error:\ninvalid cordinate parameter");
+		garbage_collect(NULL, EXIT_FAILURE);
+	}
+	cordin->x = ft_atoi(cor[0]);
+	cordin->y = ft_atoi(cor[1]);
+	cordin->z = ft_atoi(cor[2]);
+	return (cordin);
 }
 
-t_vector *get_vector(char *str)
+t_vector	*get_vector(char *str)
 {
-    t_vector *vect = malloc(sizeof(t_vector));
-    garbage_collect(vect , EXIT_FAILURE);
-    char **vec;
-    vec = ft_split(str, ',');
-    if(number_sp(vec) != 3)
-    {
-        fd_putstr(2 , "Error:\ninvalid vector parameter");
-        garbage_collect(NULL , EXIT_FAILURE);
-    }
-    vect->x = ft_atoi(vec[0]);
-    vect->y = ft_atoi(vec[1]);
-    vect->z = ft_atoi(vec[2]);
-    return vect;
+	t_vector	*vect;
+	char		**vec;
+
+	vect = malloc(sizeof(t_vector));
+	garbage_collect(vect, EXIT_FAILURE);
+	vec = ft_split(str, ',');
+	if (number_sp(vec) != 3)
+	{
+		fd_putstr(2, "Error:\ninvalid vector parameter");
+		garbage_collect(NULL, EXIT_FAILURE);
+	}
+	vect->x = ft_atoi(vec[0]);
+	vect->y = ft_atoi(vec[1]);
+	vect->z = ft_atoi(vec[2]);
+	return (vect);
 }
-void    check_direction(t_vector *vector)
+void	check_direction(t_vector *vector)
 {
-    if(vector->x > 1 || vector->x < -1 
-        || vector->y > 1 || vector->y < -1 
-        || vector->z > 1 || vector->z < -1)
-    {
-        fd_putstr(2 ,"Error:\ninvalid camera direction");
-        garbage_collect(NULL , EXIT_FAILURE);
-    }
+	if (vector->x > 1 || vector->x < -1 || vector->y > 1 || vector->y < -1
+		|| vector->z > 1 || vector->z < -1)
+	{
+		fd_putstr(2, "Error:\ninvalid camera direction");
+		garbage_collect(NULL, EXIT_FAILURE);
+	}
 }
 
-void camera(t_scene *scene, char **splitted)
+void	camera(t_scene *scene, char **splitted)
 {
-    scene->camera = malloc(sizeof(t_camera));
-    garbage_collect(scene->camera , EXIT_FAILURE);
-    if(number_sp(splitted) != 4)
-    {
-        fd_putstr(2 ,"Error:\ninvalid camera parameter");
-        garbage_collect(NULL , EXIT_FAILURE);
-    }
-    scene->camera->position = get_cordinate(splitted[1]);
-    scene->camera->direction = get_vector(splitted[2]); //should we check for range here should x ,y ,z been in [-1 ,1] range
-    check_direction(scene->camera->direction);
-    scene->camera->fov = ft_atoi(splitted[3]);
-    scene->camera->plane_height = 0;
-    scene->camera->plane_width = 0;
-    if(scene->camera->fov > 180 || scene->camera->fov < 0)
-    {
-        fd_putstr(2 , "Error:\ninvalid camera FOV\n");
-        garbage_collect(NULL, EXIT_FAILURE);
-    }
+	scene->camera = malloc(sizeof(t_camera));
+	garbage_collect(scene->camera, EXIT_FAILURE);
+	if (number_sp(splitted) != 4)
+	{
+		fd_putstr(2, "Error:\ninvalid camera parameter");
+		garbage_collect(NULL, EXIT_FAILURE);
+	}
+	scene->camera->position = get_cordinate(splitted[1]);
+	scene->camera->direction = get_vector(splitted[2]);
+		// should we check for range here should x ,y ,z been in [-1 ,1] range
+	check_direction(scene->camera->direction);
+	scene->camera->fov = ft_atoi(splitted[3]);
+	scene->camera->plane_height = 0;
+	scene->camera->plane_width = 0;
+	if (scene->camera->fov > 180 || scene->camera->fov < 0)
+	{
+		fd_putstr(2, "Error:\ninvalid camera FOV\n");
+		garbage_collect(NULL, EXIT_FAILURE);
+	}
 }
