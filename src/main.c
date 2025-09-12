@@ -146,7 +146,7 @@ void init_mlx(t_scene *scene)
     scene->data->img = mlx_new_image(scene->data->mlx, WIDTH, HEIGHT);
     scene->data->addr = mlx_get_data_addr(scene->data->img, &scene->data->bits_per_pixel, 
                                          &scene->data->line_length, &scene->data->endian);
-    mlx_key_hook(scene->data->win, key_hook, scene);
+    mlx_key_hook(scene->data->win, key_hook, scene->data);
     mlx_hook(scene->data->win, 17, 0, __exit, scene->data);
 }
 
