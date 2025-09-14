@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:37 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/13 21:19:45 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/14 08:19:35 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ int	key_hook(int key_code, t_scene *scene)
 {
 	if (key_code == ESC)
 		__exit(scene->data);
-     ray_tracer(scene);
 	return (0);
 }
 
@@ -147,7 +146,7 @@ void init_mlx(t_scene *scene)
     scene->data->img = mlx_new_image(scene->data->mlx, WIDTH, HEIGHT);
     scene->data->addr = mlx_get_data_addr(scene->data->img, &scene->data->bits_per_pixel, 
                                          &scene->data->line_length, &scene->data->endian);
-    mlx_key_hook(scene->data->win, key_hook, scene->data);
+    mlx_key_hook(scene->data->win, key_hook, scene);
     mlx_hook(scene->data->win, 17, 0, __exit, scene->data);
 }
 
