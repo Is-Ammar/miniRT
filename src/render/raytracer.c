@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 09:57:17 by yel-alja          #+#    #+#             */
-/*   Updated: 2025/09/11 22:03:38 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/14 08:14:08 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ void	plan_intersect(t_plane *plan, t_hit *hit, t_ray ray)
 	{
 		hit->distance = t;
 		hit->hit = 1;
-        hit->color = *plan->color;
+                hit->point = vec_add(ray.vec, vec_scale(ray.dir, t));
+                hit->normal = *plan->normal;
+                hit->color = *plan->color;
 	}
 }
 
@@ -100,11 +102,34 @@ t_hit	trace_ray(t_scene *scene, t_ray ray)
         return hit;
 }
 
+void shadow_trace(t_scene *scene, t_hit *hit)
+{
+        t_ray shad;
+        t_hit shadd;
+        shad.vec = vec_add(hit->point, vec_scale(hit->normal, 0.0001));
+        shad.dir = vec_sub(*scene->light->position, hit->point);
+        shadd = trace_ray(scene, shad);
+        if(shadd.distance > 0 && shadd.distance < vec_length(shad.dir))
+        {
+                hit->color.r *= 0.2;
+                hit->color.g *= 0.2;
+                hit->color.b *= 0.2;
+        }
+}
 
-// t_color calculate_lighting(t_scene *scene, t_hit hit)
-// {
-
-// }
+void calculate_lighting(t_scene *scene, t_hit *hit)
+{
+        if(scene->ambient && scene->ambient->color)
+        {
+        hit->color.r += hit->color.r * scene->light->brightness + scene->light->color->r / 255;
+        hit->color.g += hit->color.g * scene->light->brightness + scene->light->color->g / 255;      
+        hit->color.b += hit->color.b * scene->light->brightness + scene->light->color->b / 255;
+        }
+        shadow_trace(scene, hit);
+        hit->color.r = fminf(255, fmaxf(0, hit->color.r));
+        hit->color.g = fminf(255, fmaxf(0, hit->color.g));
+        hit->color.b = fminf(255, fmaxf(0, hit->color.b));
+}
 
 void	pixel_color(t_scene *scene, int x, int y, int color)
 {
@@ -130,7 +155,7 @@ void	ray_tracer(t_scene *scene)
                 {
                         ray = generate_ray(scene , x , y);
                         hit = trace_ray(scene, ray);
-                        // hit.color = calculate_lighting(scene, hit);
+                        calculate_lighting(scene, &hit);
                         int color = hit.color.r << 16 | hit.color.g << 8 | hit.color.b;
                         pixel_color(scene, x, y , color);
                         x++;

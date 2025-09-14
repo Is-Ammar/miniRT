@@ -6,7 +6,7 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:37 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/11 20:42:43 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/13 21:19:45 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,11 @@ int __exit(t_mlx_data *data)
     return (0);
 }
 
-int	key_hook(int key_code, t_mlx_data *data)
+int	key_hook(int key_code, t_scene *scene)
 {
 	if (key_code == ESC)
-		__exit(data);
+		__exit(scene->data);
+     ray_tracer(scene);
 	return (0);
 }
 
