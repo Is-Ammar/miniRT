@@ -6,25 +6,24 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 09:57:17 by yel-alja          #+#    #+#             */
-/*   Updated: 2025/09/14 08:14:08 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/18 13:35:22 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-t_ray	generate_ray(t_scene *scene, int x, int y)
+t_ray	generate_ray(t_scene *scene, float x, float y)
 {
-        t_ray ray;
-        
-        float u = ((x + 0.5) / WIDTH  - 0.5) * scene->camera->plane_width;
-        float v = (0.5 - (y + 0.5) / HEIGHT) * scene->camera->plane_height;
+	t_ray ray;
+	
+	float u = ((x + 0.5) / WIDTH  - 0.5) * scene->camera->plane_width;
+	float v = (0.5 - (y + 0.5) / HEIGHT) * scene->camera->plane_height;
 
-        
-        ray.vec = *((t_vec3 *)scene->camera->position);
-        ray.dir = vec_nor(vec_add(vec_add(*(scene->camera->direction), 
-                                          vec_scale(scene->camera->right_vec, u)), 
-                                          vec_scale(scene->camera->up_vec, v)));
-        return ray;
+	ray.vec = *((t_vec3 *)scene->camera->position);
+	ray.dir = vec_nor(vec_add(vec_add(*(scene->camera->direction), 
+					  vec_scale(scene->camera->right_vec, u)), 
+					  vec_scale(scene->camera->up_vec, v)));
+	return ray;
 }
 
 
@@ -139,28 +138,53 @@ void	pixel_color(t_scene *scene, int x, int y, int color)
 	buffer[(y * scene->data->line_length / 4) + x] = color;
 }
 
+t_color anti_aliasing(t_scene *scene,int x, int y)
+{
+        t_color total = {0};
+        t_color final = {0};
+        	t_ray ray;
+	t_hit hit;
+        int i = 0;
+        while (i++ < 4) 
+        {
+                float offset_x = x + 0.25 + (i % 2) * 0.5;
+                float offset_y = y + 0.25 + (i / 2)* 0.5;
+                
+                ray = generate_ray(scene, offset_x, offset_y);
+                hit = trace_ray(scene, ray);
+                calculate_lighting(scene, &hit);
+                
+                total.r += hit.color.r;
+                total.g += hit.color.g;
+                total.b += hit.color.b;
+        }
+        final.r = total.r / 4;
+        final.g = total.g / 4;
+        final.b = total.b / 4;
+        return final;
+}
+
 void	ray_tracer(t_scene *scene)
 {
-        int x = 0;
-        int y = 0;
-        t_ray ray;
-        t_hit hit;
-        
-        
-        put_camera(scene->camera);
-        while(y < HEIGHT)
-        {
-                x = 0;
-                while(x < WIDTH)
-                {
-                        ray = generate_ray(scene , x , y);
-                        hit = trace_ray(scene, ray);
-                        calculate_lighting(scene, &hit);
-                        int color = hit.color.r << 16 | hit.color.g << 8 | hit.color.b;
-                        pixel_color(scene, x, y , color);
-                        x++;
-                }
-                y++;
-        }
-        mlx_put_image_to_window(scene->data->mlx, scene->data->win, scene->data->img, 0, 0);
+	int x = 0;
+	int y = 0;
+
+	
+	put_camera(scene->camera);
+	
+	while (y < HEIGHT) 
+	{
+		x = 0;
+		while (x < WIDTH) 
+		{
+			t_color final = anti_aliasing(scene, x, y);
+			
+			int color = (final.r << 16) | (final.g << 8) | final.b;
+			pixel_color(scene, x, y, color);
+			x++;
+		}
+		y++;
+	}
+	
+	mlx_put_image_to_window(scene->data->mlx, scene->data->win, scene->data->img, 0, 0);
 }
