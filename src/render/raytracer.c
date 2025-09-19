@@ -118,12 +118,19 @@ void shadow_trace(t_scene *scene, t_hit *hit)
 
 void calculate_lighting(t_scene *scene, t_hit *hit)
 {
-        if(scene->ambient && scene->ambient->color)
+        if(scene->ambient && scene->ambient->intensity)
         {
-        hit->color.r += hit->color.r * scene->light->brightness + scene->light->color->r / 255;
-        hit->color.g += hit->color.g * scene->light->brightness + scene->light->color->g / 255;      
-        hit->color.b += hit->color.b * scene->light->brightness + scene->light->color->b / 255;
+        hit->color.r += hit->color.r * scene->ambient->intensity;
+        hit->color.g += hit->color.g * scene->ambient->intensity;
+        hit->color.b += hit->color.b * scene->ambient->intensity;
         }
+        t_vec3 light_dir = vec_nor(vec_sub(*scene->light->position, hit->point));
+        float intensity = vec_dot(hit->normal, light_dir);
+        if (intensity < 0)
+                intensity = 0;
+         hit->color.r = (int)(hit->color.r * intensity + scene->light->brightness);
+        hit->color.g = (int)(hit->color.g * intensity + scene->light->brightness);
+        hit->color.b = (int)(hit->color.b * intensity + scene->light->brightness);
         shadow_trace(scene, hit);
         hit->color.r = fminf(255, fmaxf(0, hit->color.r));
         hit->color.g = fminf(255, fmaxf(0, hit->color.g));
