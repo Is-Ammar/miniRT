@@ -17,7 +17,7 @@ EXEC_OBJ = ${EXEC_SRC:%.c=%.o}
 
 RM = rm -f
 
-NAME = minirt
+NAME = miniRT
 
 all: ${NAME}
 

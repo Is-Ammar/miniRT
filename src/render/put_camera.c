@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_camera.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:17:19 by yel-alja          #+#    #+#             */
-/*   Updated: 2025/09/11 21:40:51 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/17 10:12:37 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,12 @@ void	put_camera(t_camera *camera)
 		up = (t_vec3){0, 0, 1};
 	camera->right_vec = vec_nor(vec_cro(forward, up));
 	camera->up_vec = vec_cro(camera->right_vec, forward);
-	fov_rad = camera->fov * (M_PI / 180.0f);
-	camera->plane_width = 2.0f * tan(fov_rad / 2.0f);
+	fov_rad = camera->fov * 0.0174533;
+	camera->plane_width = 2 * tan(fov_rad / 2);
 	camera->plane_height = camera->plane_width / (WIDTH / HEIGHT);
 }
-
-
 
 float	vec_dot(t_vec3 v1, t_vec3 v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
-
-// void plan_equation(t_scene *scene) // n.(p - p0) = 0 // n is the nromal vector  //  p is a point on the plane //p0 is a konwn point on the plane
-// {
-//         // scene->plane->normal
-// }

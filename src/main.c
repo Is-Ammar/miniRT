@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:37 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/11 20:42:43 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/16 09:44:01 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,10 @@ int __exit(t_mlx_data *data)
     return (0);
 }
 
-int	key_hook(int key_code, t_mlx_data *data)
+int	key_hook(int key_code, t_scene *scene)
 {
 	if (key_code == ESC)
-		__exit(data);
+		__exit(scene->data);
 	return (0);
 }
 
@@ -160,10 +160,7 @@ int main(int ac, char **av)
         if(!scene)
         garbage_collect(NULL, EXIT_FAILURE);
         init_mlx(scene);
-        // put_camera(scene->camera);
         ray_tracer(scene);
-        print_scene(scene);
-        // render(scene);
         mlx_loop(scene->data->mlx);
     }
     else
@@ -171,6 +168,4 @@ int main(int ac, char **av)
         fd_putstr(2, "Usage: ./minirt 'a scene in format *.rt'\n");
         return (1);
     }
-    
-    // render(data);
 }
