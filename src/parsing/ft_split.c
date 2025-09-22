@@ -49,7 +49,7 @@ char	*get_next_word(const char **s, char c)
 		(*s)++;
 	length = *s - start;
 	word = malloc(length + 1);
-	garbage_collect(word , EXIT_FAILURE);
+	garbage_collect(word, EXIT_FAILURE);
 	i = 0;
 	while (i < length)
 	{
@@ -59,7 +59,6 @@ char	*get_next_word(const char **s, char c)
 	word[i] = '\0';
 	return (word);
 }
-
 
 char	**ft_split(char const *s, char c)
 {

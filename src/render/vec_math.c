@@ -12,16 +12,6 @@
 
 #include "../minirt.h"
 
-t_vec3	vec_sub(t_vec3 v1, t_vec3 v2)
-{
-	t_vec3	result;
-
-	result.x = v1.x - v2.x;
-	result.y = v1.y - v2.y;
-	result.z = v1.z - v2.z;
-	return (result);
-}
-
 t_vec3	vec_cro(t_vec3 v1, t_vec3 v2)
 {
 	t_vec3	result;
@@ -64,7 +54,7 @@ t_vec3	vec_scale(t_vec3 v, float s)
 	return (result);
 }
 
-float vec_length(t_vec3 v)
+float	vec_length(t_vec3 v)
 {
-    return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }

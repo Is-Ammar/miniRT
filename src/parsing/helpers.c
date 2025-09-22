@@ -6,13 +6,13 @@
 /*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 00:40:58 by iammar            #+#    #+#             */
-/*   Updated: 2025/08/02 04:11:12 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/22 12:49:06 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-int	ft_isnum(const char *str)
+void	ft_isnum(const char *str)
 {
 	int	i;
 
@@ -22,23 +22,19 @@ int	ft_isnum(const char *str)
 		if ((str[i] >= '0' && str[i] <= '9') || str[i] == '.' || str[i] == '-')
 			i++;
 		else
-			return (1);
+		{
+			fd_putstr(2, "Error:\n values\n");
+			garbage_collect(NULL, EXIT_FAILURE);
+		}
 	}
-	return (0);
 }
 
 float	ft_atoi(const char *str)
 {
 	t_atoi	strr;
 
-	strr = (t_atoi){0};
-	strr.d = 1;
-	strr.s = 1;
-	if (ft_isnum(str))
-		{
-			printf("error: values\n");
-			exit(1);
-		}
+	strr = (t_atoi){1, 0, 0, 1};
+	ft_isnum(str);
 	while (*str == ' ' || (*str >= 9 && *str <= 13))
 		str++;
 	if (*str == '-' || *str == '+')
@@ -61,7 +57,7 @@ float	ft_atoi(const char *str)
 	return (strr.s * (strr.r + strr.f / strr.d));
 }
 
-int	ft_strcmp(char *s1,char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
 	size_t	i;
 
@@ -71,4 +67,16 @@ int	ft_strcmp(char *s1,char *s2)
 		i++;
 	}
 	return (s1[i] - s2[i]);
+}
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	unsigned char	*ptr;
+
+	ptr = s;
+	while (n--)
+	{
+		*ptr++ = (unsigned char)c;
+	}
+	return (s);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 03:53:44 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/02 08:21:32 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/22 12:52:51 by iammar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_cor	*get_cordinate(char *str)
 	cor = ft_split(str, ',');
 	if (number_sp(cor) != 3)
 	{
-		fd_putstr(2, "Error:\ninvalid cordinate parameter");
+		fd_putstr(2, "Error:\ninvalid cordinate parameter\n");
 		garbage_collect(NULL, EXIT_FAILURE);
 	}
 	cordin->x = ft_atoi(cor[0]);
@@ -41,7 +41,7 @@ t_vector	*get_vector(char *str)
 	vec = ft_split(str, ',');
 	if (number_sp(vec) != 3)
 	{
-		fd_putstr(2, "Error:\ninvalid vector parameter");
+		fd_putstr(2, "Error:\ninvalid vector parameter\n");
 		garbage_collect(NULL, EXIT_FAILURE);
 	}
 	vect->x = ft_atoi(vec[0]);
@@ -49,28 +49,32 @@ t_vector	*get_vector(char *str)
 	vect->z = ft_atoi(vec[2]);
 	return (vect);
 }
+
 void	check_direction(t_vector *vector)
 {
-	if (vector->x > 1 || vector->x < -1 || vector->y > 1 || vector->y < -1
-		|| vector->z > 1 || vector->z < -1)
+	if (fabs(vector->x) > 1 || fabs(vector->y) > 1 || fabs(vector->z) > 1)
 	{
-		fd_putstr(2, "Error:\ninvalid camera direction");
+		fd_putstr(2, "Error:\n vector should be in range [-1, 1]\n");
 		garbage_collect(NULL, EXIT_FAILURE);
 	}
 }
 
 void	camera(t_scene *scene, char **splitted)
 {
+	if (scene->camera)
+	{
+		fd_putstr(2, "Error:\n Too many cameras\n");
+		garbage_collect(NULL, EXIT_FAILURE);
+	}
 	scene->camera = malloc(sizeof(t_camera));
 	garbage_collect(scene->camera, EXIT_FAILURE);
 	if (number_sp(splitted) != 4)
 	{
-		fd_putstr(2, "Error:\ninvalid camera parameter");
+		fd_putstr(2, "Error:\ninvalid camera parameter\n");
 		garbage_collect(NULL, EXIT_FAILURE);
 	}
 	scene->camera->position = get_cordinate(splitted[1]);
 	scene->camera->direction = get_vector(splitted[2]);
-		// should we check for range here should x ,y ,z been in [-1 ,1] range
 	check_direction(scene->camera->direction);
 	scene->camera->fov = ft_atoi(splitted[3]);
 	scene->camera->plane_height = 0;

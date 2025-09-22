@@ -5,38 +5,29 @@ CFLAGS = -Wall -Wextra -Werror -g
 MLX_PATH = ../minilibx-linux
 MLX_LINK = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm
 
-# -------------------------------- iammar -------------------------------- #
 
 SRC = 	main.c parsing/helpers.c parsing/ft_split.c parsing/helpers2.c \
 		parsing/parse.c parsing/camera.c parsing/light.c parsing/scene_elements.c\
-		parsing/garbage_collector.c render/vec_math.c render/put_camera.c render/raytracer.c
+		parsing/garbage_collector.c render/vec_math.c render/put_camera.c render/raytracer.c \
+		render/render.c parsing/helpers3.c
 
-OBJ = ${SRC:%.c=%.o}
-
-EXEC_OBJ = ${EXEC_SRC:%.c=%.o}
+OBJ = $(SRC:.c=.o)
 
 RM = rm -f
 
 NAME = miniRT
 
-all: ${NAME}
+all: $(NAME)
 
-%.o: %.c
-	${CC} ${CFLAGS} -I$(MLX_PATH) -c $< -o $@ 
-
-${NAME}: ${OBJ}
-	${CC} ${CFLAGS} ${OBJ} ${MLX_LINK} -o $@
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_LINK) -o $(NAME)
 
 clean:
-	${RM} ${OBJ}  
+	$(RM) $(OBJ)  
 
 fclean: clean
-	${RM} ${NAME}
+	$(RM) $(NAME)
 
 re: fclean all
 
-bonus: all
-
 .PHONY: all clean fclean re
-
-.SECONDARY: ${OBJ}

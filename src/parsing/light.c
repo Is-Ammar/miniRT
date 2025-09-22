@@ -12,16 +12,22 @@
 
 #include "../minirt.h"
 
-void light(t_scene *scene , char **splitted)
+void	light(t_scene *scene, char **splitted)
 {
-    scene->light = malloc(sizeof(t_light));
-    garbage_collect(scene->light , EXIT_FAILURE);
-    if(number_sp(splitted) != 4 || ft_atoi(splitted[2]) > 1 || ft_atoi(splitted[2]) < 0)
-    {
-       fd_putstr(2, "Error:\n invalid light parameter");
-        garbage_collect(NULL , EXIT_FAILURE);
-    }
-    scene->light->position = get_cordinate(splitted[1]);
-    scene->light->brightness = ft_atoi(splitted[2]);
-    scene->light->color = get_color(splitted[3]);
+	if (scene->light)
+	{
+		fd_putstr(2, "Error:\n Too many lights\n");
+		garbage_collect(NULL, EXIT_FAILURE);
+	}
+	scene->light = malloc(sizeof(t_light));
+	garbage_collect(scene->light, EXIT_FAILURE);
+	if (number_sp(splitted) != 4 || ft_atoi(splitted[2]) > 1
+		|| ft_atoi(splitted[2]) < 0)
+	{
+		fd_putstr(2, "Error:\n invalid light parameter\n");
+		garbage_collect(NULL, EXIT_FAILURE);
+	}
+	scene->light->position = get_cordinate(splitted[1]);
+	scene->light->brightness = ft_atoi(splitted[2]);
+	scene->light->color = get_color(splitted[3]);
 }
