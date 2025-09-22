@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:37 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/16 09:44:01 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/22 21:52:01 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ int	main(int ac, char **av)
 {
 	t_scene	*scene;
 
-	check_name(av[1]);
 	scene = NULL;
 	if (ac == 2)
 	{
+		check_name(av[1]);
 		scene = parse_file(av[1]);
 		if (!scene)
 			garbage_collect(NULL, EXIT_FAILURE);
