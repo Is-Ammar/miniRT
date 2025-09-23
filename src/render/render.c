@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:29:17 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/22 13:31:37 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/23 08:56:26 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,19 @@ t_ray	generate_ray(t_scene *scene, int x, int y)
 
 void	trace_ray(t_scene *scene, t_ray ray, t_hit *hit)
 {
-	// t_sphere	*sph;
+	t_sphere	*sph;
 	t_plane		*pln;
 	t_cylinder	*cldr;
 
 	hit->distance = INFINITY;
-	// sph = scene->sphere;
+	sph = scene->sphere;
 	pln = scene->plane;
 	cldr = scene->cylinder;
-	// while (sph)
-	// {
-	// 	sphere_intersect(sph, hit, &ray, 0);
-	// 	sph = sph->next;
-	// }
+	while (sph)
+	{
+		sphere_intersect(sph, hit, &ray, 0);
+		sph = sph->next;
+	}
 	while (pln)
 	{
 		plan_intersect(pln, hit, ray);
