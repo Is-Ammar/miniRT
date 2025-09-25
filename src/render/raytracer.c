@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 09:57:17 by yel-alja          #+#    #+#             */
-/*   Updated: 2025/09/23 11:14:57 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/25 22:57:43 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,61 +60,56 @@ void	plan_intersect(t_plane *plan, t_hit *hit, t_ray ray)
 	}
 }
 
-void	cylinder_intersect(t_cylinder *cylinder, t_hit *hit, t_ray ray)
+static int	intersect_cap(t_ray ray, t_hit *hit, t_cylinder *cyl, t_vec3 center)
 {
-	t_vec3	oc;
 	t_vec3	axis;
-	float	radius;
-	t_vec3	d;
-	t_vec3	p;
-	float	a;
-	float	b;
-	float	c;
-	float	delta;
 	float	t;
-	float	t1;
-	float	t2;
-	t_vec3	hit_point;
-	float	height_pos;
-	t_vec3	proj;
+	t_vec3	p;
 
-	oc = vec_sub(ray.vec, *cylinder->center);
-	axis = vec_nor(*cylinder->axis);
-	radius = cylinder->diameter / 2.0;
-	d = vec_sub(ray.dir, vec_scale(axis, vec_dot(ray.dir, axis)));
-	p = vec_sub(oc, vec_scale(axis, vec_dot(oc, axis)));
-	a = vec_dot(d, d);
-	b = 2 * vec_dot(d, p);
-	c = vec_dot(p, p) - radius * radius;
-	delta = b * b - 4 * a * c;
-	if (delta < 0)
-		return ;
-	t1 = (-b - sqrtf(delta)) / (2 * a);
-	t2 = (-b + sqrtf(delta)) / (2 * a);
-	t = -1;
-	if (t1 > 0 && t1 < hit->distance)
-	{
-		hit_point = vec_add(ray.vec, vec_scale(ray.dir, t1));
-		height_pos = vec_dot(vec_sub(hit_point, *cylinder->center), axis);
-		if (fabsf(height_pos) <= cylinder->height / 2.0)
-			t = t1;
-	}
-	if ((t < 0 || t2 < t) && t2 > 0 && t2 < hit->distance)
-	{
-		hit_point = vec_add(ray.vec, vec_scale(ray.dir, t2));
-		height_pos = vec_dot(vec_sub(hit_point, *cylinder->center), axis);
-		if (fabsf(height_pos) <= cylinder->height / 2.0)
-			t = t2;
-	}
-	if (t < 0 || t > hit->distance)
-		return ;
+	axis = vec_nor(*cyl->axis);
+	t = vec_dot(vec_sub(center, ray.vec), axis) / vec_dot(ray.dir, axis);
+	if (t < 0 || t >= hit->distance)
+		return (0);
+	p = vec_add(ray.vec, vec_scale(ray.dir, t));
+	if (vec_length(vec_sub(p, center)) > (cyl->diameter / 2.0))
+		return (0);
 	hit->hit = 1;
 	hit->distance = t;
-	hit->point = hit_point;
-	hit->color = *cylinder->color;
-	proj = vec_scale(axis, vec_dot(vec_sub(hit_point, *cylinder->center),
-				axis));
-	hit->normal = vec_nor(vec_sub(vec_sub(hit_point, *cylinder->center), proj));
+	hit->point = p;
+	hit->color = *cyl->color;
+	if (vec_dot(ray.dir, axis) > 0)
+		hit->normal = vec_scale(axis, -1);
+	else
+		hit->normal = axis;
+	return (1);
+}
+
+void	cylinder_intersect(t_cylinder *cylinder, t_hit *hit, t_ray ray)
+{
+	t_intsec	cy;
+
+	cy = (t_intsec){0};
+	init_cy(&cy, cylinder, ray);
+	if (cy.delta < 0)
+		return ;
+	cy.t = fminf((-cy.b - sqrtf(cy.delta)) / (2 * cy.a), (-cy.b
+				+ sqrtf(cy.delta)) / (2 * cy.a));
+	cy.hit_point = vec_add(ray.vec, vec_scale(ray.dir, cy.t));
+	cy.height_pos = vec_dot(vec_sub(cy.hit_point, *cylinder->center), cy.axis);
+	if (fabsf(cy.height_pos) <= cylinder->height / 2.0 && cy.t < hit->distance)
+	{
+		hit->hit = 1;
+		hit->distance = cy.t;
+		hit->point = cy.hit_point;
+		hit->color = *cylinder->color;
+		cy.proj = vec_scale(cy.axis, cy.height_pos);
+		hit->normal = vec_nor(vec_sub(vec_sub(hit->point, *cylinder->center),
+					cy.proj));
+	}
+	intersect_cap(ray, hit, cylinder, vec_add(*cylinder->center,
+			vec_scale(cy.axis, cylinder->height / 2.0)));
+	intersect_cap(ray, hit, cylinder, vec_sub(*cylinder->center,
+			vec_scale(cy.axis, cylinder->height / 2.0)));
 }
 
 void	shadow_trace(t_scene *scene, t_hit *hit)

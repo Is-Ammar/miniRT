@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:29:17 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/23 08:56:26 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/25 23:23:51 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 t_ray	generate_ray(t_scene *scene, int x, int y)
 {
 	t_ray	ray;
-	float	u;
+	float	h;
 	float	v;
 
-	u = ((x + 0.5) / WIDTH - 0.5) * scene->camera->plane_width;
+	h = ((x + 0.5) / WIDTH - 0.5) * scene->camera->plane_width;
 	v = (0.5 - (y + 0.5) / HEIGHT) * scene->camera->plane_height;
 	ray.vec = *((t_vec3 *)scene->camera->position);
 	ray.dir = vec_nor(vec_add(vec_add(*(scene->camera->direction),
-					vec_scale(scene->camera->right_vec, u)),
+					vec_scale(scene->camera->right_vec, h)),
 				vec_scale(scene->camera->up_vec, v)));
 	return (ray);
 }

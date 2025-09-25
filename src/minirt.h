@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iammar <iammar@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/22 13:10:59 by iammar           ###   ########.fr       */
+/*   Updated: 2025/09/25 22:58:11 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,23 @@ typedef struct s_garabage
 	struct s_garabage	*next;
 }						t_garbage;
 
+typedef struct s_intsec
+{
+	t_vec3				oc;
+	t_vec3				axis;
+	float				radius;
+	t_vec3				d;
+	t_vec3				p;
+	float				a;
+	float				b;
+	float				c;
+	float				delta;
+	float				t;
+	t_vec3				hit_point;
+	float				height_pos;
+	t_vec3				proj;
+}						t_intsec;
+
 char					*ft_strdup(char *src);
 float					ft_atoi(const char *str);
 size_t					ft_strlcpy(char *dst, char *src, size_t len);
@@ -198,4 +215,5 @@ size_t					ft_strlen(char *str);
 void					render(t_scene *scene);
 void					put_camera(t_camera *camera);
 t_ray					generate_ray(t_scene *scene, int x, int y);
+void					init_cy(t_intsec *cy, t_cylinder *cylinder, t_ray ray);
 #endif
