@@ -13,7 +13,7 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "../minilibx-linux/mlx.h"
+# include "/usr/include/minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdbool.h>
@@ -161,7 +161,7 @@ typedef struct s_intsec
 }						t_intsec;
 
 char					*ft_strdup(char *src);
-float					ft_atoi(const char *str);
+float					ft_atoi(char *str);
 size_t					ft_strlcpy(char *dst, char *src, size_t len);
 char					**ft_split(char const *s, char c);
 int						ft_strcmp(char *s1, char *s2);

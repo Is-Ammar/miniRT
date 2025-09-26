@@ -95,13 +95,13 @@ void	render(t_scene *scene)
 	int		color;
 
 	y = 0;
-	hit = (t_hit){0};
 	put_camera(scene->camera);
 	while (y < HEIGHT)
 	{
 		x = 0;
 		while (x < WIDTH)
 		{
+			hit = (t_hit){0};
 			ray = generate_ray(scene, x, y);
 			trace_ray(scene, ray, &hit);
 			calculate_lighting(scene, &hit);

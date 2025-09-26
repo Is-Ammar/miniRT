@@ -46,6 +46,11 @@ t_sphere	*spher(char **splitted)
 	sphere->diameter = ft_atoi(splitted[2]);
 	sphere->color = get_color(splitted[3]);
 	sphere->next = NULL;
+		if (sphere->diameter < 0)
+	{
+		fd_putstr(2, "Error\n: invalid sphere diameter!\n");
+		garbage_collect(NULL, EXIT_FAILURE);
+	}
 	return (sphere);
 }
 
@@ -87,9 +92,9 @@ t_cylinder	*cylinde(char **splitted)
 	cylinder->next = NULL;
 	if (cylinder->axis->x < -1 || cylinder->axis->x > 1 || cylinder->axis->y < \
 		-1 || cylinder->axis->y > 1 || cylinder->axis->z < -1
-		|| cylinder->axis->z > 1)
+		|| cylinder->axis->z > 1 || cylinder->diameter < 0 || cylinder->height < 0)
 	{
-		fd_putstr(2, "Error\n: axis vector must be in range [-1,1]!\n");
+		fd_putstr(2, "Error\n: cylinder parameters!\n");
 		garbage_collect(NULL, EXIT_FAILURE);
 	}
 	return (cylinder);

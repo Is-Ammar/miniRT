@@ -12,10 +12,29 @@
 
 #include "../minirt.h"
 
-void	ft_isnum(const char *str)
+void check_dot(char *str)
+{
+	int i = 0;
+	int count_dot = 0;
+
+	while (str[i])
+	{
+		if (str[i] == '.')
+			count_dot++;
+		i++;
+	}
+	if (count_dot > 1)
+	{
+		fd_putstr(2, "Error:\n values\n");
+		garbage_collect(NULL, EXIT_FAILURE);
+	}
+}
+
+void	ft_isnum(char *str)
 {
 	int	i;
 
+	check_dot(str);
 	i = 0;
 	while (str[i])
 	{
@@ -29,7 +48,7 @@ void	ft_isnum(const char *str)
 	}
 }
 
-float	ft_atoi(const char *str)
+float	ft_atoi(char *str)
 {
 	t_atoi	strr;
 
