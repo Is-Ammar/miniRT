@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 09:57:17 by yel-alja          #+#    #+#             */
-/*   Updated: 2025/09/25 22:57:43 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/26 09:19:06 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,13 @@ void	cylinder_intersect(t_cylinder *cylinder, t_hit *hit, t_ray ray)
 {
 	t_intsec	cy;
 
-	cy = (t_intsec){0};
 	init_cy(&cy, cylinder, ray);
 	if (cy.delta < 0)
 		return ;
 	cy.t = fminf((-cy.b - sqrtf(cy.delta)) / (2 * cy.a), (-cy.b
 				+ sqrtf(cy.delta)) / (2 * cy.a));
+	if (cy.t < 0)
+		return ;
 	cy.hit_point = vec_add(ray.vec, vec_scale(ray.dir, cy.t));
 	cy.height_pos = vec_dot(vec_sub(cy.hit_point, *cylinder->center), cy.axis);
 	if (fabsf(cy.height_pos) <= cylinder->height / 2.0 && cy.t < hit->distance)

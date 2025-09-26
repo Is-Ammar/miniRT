@@ -6,7 +6,7 @@
 /*   By: yel-alja <yel-alja@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 22:05:35 by iammar            #+#    #+#             */
-/*   Updated: 2025/09/25 22:58:11 by yel-alja         ###   ########.fr       */
+/*   Updated: 2025/09/26 09:01:26 by yel-alja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,8 @@
 # include <fcntl.h>
 # include <math.h>
 # include <stdbool.h>
-# include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
-
-# ifndef M_PI
-#  define M_PI 3.14159265358979323846
-# endif
 
 # define WIDTH 800
 # define HEIGHT 600

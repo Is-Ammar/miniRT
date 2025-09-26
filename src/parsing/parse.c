@@ -98,7 +98,7 @@ t_scene	*parse_file(char *file)
 		line = gnl(fd);
 	}
 	if (!scene || !scene->camera || !scene->ambient || !scene->light)
-		(fd_putstr(2, "Error:\n invalid scene\n"), \
-		garbage_collect(NULL, EXIT_FAILURE));
+		(fd_putstr(2, "Error:\n invalid scene\n"), garbage_collect(NULL,
+				EXIT_FAILURE));
 	return (scene);
 }
