@@ -13,7 +13,7 @@ A minimal real‑time ray tracer written in C using the MiniLibX (X11) library. 
 - [src](src): application sources and [src/Makefile](src/Makefile)
 - [src/parsing](src/parsing): scene file parsing
 - [src/render](src/render): ray generation, intersections, shading
-- [src/parsing/scenes](src/parsing/scenes): example `.rt` scenes
+- [src/scenes](src/scenes): example `.rt` scenes
 - [minilibx-linux](minilibx-linux): MiniLibX (Linux/X11) submodule
 
 ## Requirements (Linux)
@@ -40,26 +40,17 @@ cd src
 make
 ```
 
-2) Linking against the local `minilibx-linux` folder (no system install):
-- Override the Makefile variables for a one-shot build:
+2) Linking against the local `minilibx-linux` folder:
 
 ```bash
 cd src
-make MLX_PATH=../minilibx-linux \
-     MLX_LINK="-L$(MLX_PATH) -lmlx_Linux -lXext -lX11 -lm -lz"
+make 
 ```
-
-Notes:
-- The code includes MiniLibX header via an absolute path in `minirt.h`. If you do not install headers to `/usr/include/minilibx-linux`, you can either install them there, or adjust the include in `minirt.h` to a relative path (e.g., `minilibx-linux/mlx.h`).
-- If you install MiniLibX manually, a typical layout is:
-  - Headers: `/usr/include/minilibx-linux/mlx.h`
-  - Library: `/usr/local/lib/libmlx.a` (or `libmlx_Linux.a` symlinked as `libmlx.a`)
 
 ## Run
 After a successful build, the binary is generated as `miniRT` inside `src`.
 
 ```bash
-cd src
 ./miniRT parsing/scenes/sphere.rt
 ```
 
@@ -120,6 +111,3 @@ Here are sample renders produced by miniRT:
 
 ![miniRT render 20-11-54](image/image4.png)
 
-## License
-- MiniLibX is provided by 42 (see [minilibx-linux/README.md](minilibx-linux/README.md)).
-- The miniRT source here is for educational purposes; no explicit license is provided by default.
